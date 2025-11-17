@@ -3,9 +3,9 @@ requires = ["setuptools>=80.9.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "template_project_name"
-version = "0.0.1.dev725"
-description = "about project"
+name = "conotes"
+version = "0.0.1.dev251117"
+description = "Note taking tool from console."
 authors = [
     { name = "stpatrirach" }
 ]
@@ -17,6 +17,6 @@ dependencies = [
 ]
 
 [tool.setuptools]
-packages = ["template_project_name"]
+packages = ["conotes"]
 package-dir = {"" = "src"}
 
