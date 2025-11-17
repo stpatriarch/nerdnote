@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=80.9.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "template_project_name"
+version = "0.0.1.dev725"
+description = "about project"
+authors = [
+    { name = "stpatrirach" }
+]
+requires-python = ">=3.7"
+dependencies = [
+    "lib>=0.4.6",
+    "lib>=3.1.5",
+    "lib>=80.9.0"
+]
+
+[tool.setuptools]
+packages = ["template_project_name"]
+package-dir = {"" = "src"}
+
