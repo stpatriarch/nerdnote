@@ -20,7 +20,7 @@ class NoteDataBase:
     def connection(self, content: str, values: tuple[str | int] | None = None) -> sqlite3.Cursor:
         
         with self.connect:
-            self.connect.row_factory = sqlite3.Row
+
             cursor = self.connect.cursor()
             
             if values is None:
@@ -35,7 +35,8 @@ class NoteDataBase:
         table = '''CREATE TABLE IF NOT EXISTS notes (
 
             id INTEGER PRIMARY KEY,
-            name TEXT
+            name TEXT,
+            created_date DATE DEFAULT (DATE('now')) NOT NULL
         )'''
 
         return self.connection(table)
@@ -49,18 +50,26 @@ class NoteDataBase:
         
         return self.connection(query, (date,))
 
-    def select(self, id: int | None = None):
+    def select(self, id: int | None = None) -> tuple | list:
 
 
         if id is None:
+            
+            query = "SELECT * FROM notes ORDER BY id"
 
-            query = "SELECT * FROM notes"
             return self.connection(query).fetchall()
-        
+
         query = "SELECT * FROM notes WHERE id = ?"
 
 
         return self.connection(query, (id,)).fetchone()
+
+    def drop(self, id: int):
+        
+        query = "DELETE FROM notes WHERE id = ?"
+
+        return self.connection(query, (id,))
+
 
 
 
@@ -70,7 +79,9 @@ class NoteDataBase:
 if __name__ == '__main__':
     base = NoteDataBase()
     base._create()
-    base.insert('25_25_25')
-    s2 = dict(base.select(6))
-    s = dict(base.select())
-    print(s, s2)
+    base.insert('2025_11_27')
+    # base.insert('25_25_25')
+    # s2 = dict(base.select(6))
+    s = base.select() 
+
+    print(type(s))

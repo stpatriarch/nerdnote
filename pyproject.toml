@@ -3,19 +3,26 @@ requires = ["setuptools>=80.9.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "conotes"
+name = "conote"
 version = "0.0.1.dev251117"
 description = "Note taking tool from console."
 authors = [
     { name = "stpatrirach" }
 ]
-requires-python = ">=3.7"
+requires-python = ">=3.10"
 dependencies = [
-    "mdutils 1.8.1",
+    "mdutils >= 1.8.1",
 
     ]
 
 [tool.setuptools]
-packages = ["conotes"]
+packages = [
+"conote",
+"conote.modules",
+"conote.modules.tools",
+]
+
 package-dir = {"" = "src"}
 
+[project.scripts]
+ conotes = "conote.main:main"
