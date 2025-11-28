@@ -7,7 +7,6 @@ from rich.table import Table
 from rich import box
 from rich.markdown import Markdown
 from rich.panel import Panel
-from rich.align import Align
 from conote.modules import MarkDownInit, NoteDataBase
 
 
@@ -37,38 +36,44 @@ class NoteCommandController(NoteDataBase, MarkDownInit):
 
     def rm(self, id: int):
 
-        record: tuple = self.select(id=id)
-        
-        if record:
-            
-            file = record[1] + '.md'
+        path = self.is_exists(id)
 
-            file_path = os.path.join(self.dbase_dir, file)
-            if os.path.exists(file_path):
-                os.remove(file_path)
-                self.drop(id)
+        if path:
+            
+           os.remove(file_path)
+           self.drop(id)
                 
-                print('file sucsessfully deleted')
+           print('file sucsessfully deleted')
+
         else:
             
             print('not deleted')
 
+
     def cat(self, id: int):
+
+        path = self.is_exists(id)
+
+        if path:
+            md = Markdown(self.md.read_file(path))
+ 
+            return self.console.print(Panel(md, title=f'{path}', box=box.HORIZONTALS, expand=True))
+
+    
+    def is_exists(self, id: int):
         
-        record: tuple[int, str, str] = self.select(id=id)
+        record: tuple = self.select(id=id)
 
         if record:
             
-            file = record[1] + '.md'
+            file = "".join([record[1], '.md',])
         
             file_path = os.path.join(self.dbase_dir, file)
             if os.path.exists(file_path):
-               _md = self.md.read_file(file_path)
-               md = Markdown(_md)
- 
-        return self.console.print(Panel(md, title=f'{file}', box=box.HORIZONTALS, expand=True))
-
-
+                return file_path
+        else:
+            return None
+        
     def export(self):
         pass
 
@@ -76,4 +81,4 @@ class NoteCommandController(NoteDataBase, MarkDownInit):
 if __name__ == '__main__':
     note = NoteCommandController()
     note.ls()
-    note.cat(35)
+    note.cat(37)

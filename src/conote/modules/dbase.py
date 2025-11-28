@@ -50,6 +50,7 @@ class NoteDataBase:
         
         return self.connection(query, (date,))
 
+
     def select(self, id: int | None = None) -> tuple | list:
 
 
@@ -79,7 +80,7 @@ class NoteDataBase:
 if __name__ == '__main__':
     base = NoteDataBase()
     base._create()
-    base.insert('2025_11_27')
+    base.insert('2025_11_29')
     # base.insert('25_25_25')
     # s2 = dict(base.select(6))
     s = base.select() 

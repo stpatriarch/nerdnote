@@ -33,8 +33,7 @@ class MarkDownInit(MdUtils):
 
             file_content = self.md.read_file(self.note_path_with_extension)
         
-            self.new_header(level=2, title=f'{time_now}', add_table_of_contents='n')
-            
+            self.new_line(f"{time_now}", bold_italics_code='b')
             self.new_paragraph('հայաստանի և Արցախի պետական լեզուն է։ Իր շուրջ հինգհազարամյա')
 
             with open(self.note_path_with_extension, 'w', encoding='utf-8') as f:
@@ -42,7 +41,6 @@ class MarkDownInit(MdUtils):
  
         else: 
             self.new_header(level=1, title=f'{date_now}')
-            self.new_header(level=2, title=f'{time_now}')
             self.save
        
 
