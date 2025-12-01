@@ -3,6 +3,6 @@
 
 from .markdown import MarkDownInit
 from .dbase import NoteDataBase
-
-__all__ = ['MarkDownInit', 'NoteDataBase',]
+from .controller import NoteCommandController
+__all__ = ['MarkDownInit', 'NoteDataBase', 'NoteCommandController',]
 

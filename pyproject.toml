@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "conote"
-version = "0.0.1.dev251127"
+version = "0.0.1.dev20251201"
 description = "Note taking tool from console."
 authors = [
     { name = "stpatrirach" }
@@ -12,18 +12,17 @@ authors = [
 requires-python = ">=3.10"
 dependencies = [
     "mdutils >= 1.8.1",
-    "rich >= 14.2.0"
+    "rich >= 14.2.0",
+    "click >= 8.3.1"
 
     ]
 
 [tool.setuptools]
 packages = [
 "conote",
-"conote.modules",
-"conote.modules.tools",
-]
+"conote.modules",]
 
 package-dir = {"" = "src"}
 
 [project.scripts]
- conotes = "conote.main:main"
+ conote = "conote.main:main"

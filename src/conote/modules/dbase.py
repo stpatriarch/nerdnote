@@ -2,12 +2,14 @@
 
 import os
 from pathlib import Path
+from datetime import datetime
 
 import sqlite3
 
+date_now_undercored:str = datetime.now().strftime("%Y_%m_%d")
 
 dbase_dir = str(Path.home() / "Documents/CNotes")
-
+os.makedirs(dbase_dir, exist_ok=True)
 dbase = os.path.join(dbase_dir, 'note_base.db')
 
 class NoteDataBase:
@@ -26,7 +28,7 @@ class NoteDataBase:
             if values is None:
                 cursor.execute(content)
             else:
-                cursor.execute(content, values or [])
+                cursor.execute(content, values)
 
             return cursor
 
@@ -42,13 +44,18 @@ class NoteDataBase:
         return self.connection(table)
 
 
-    def insert(self, date: str):
+    def insert(self):
         
         self._create()
-
-        query = "INSERT OR REPLACE INTO notes (name) VALUES (?)"
         
-        return self.connection(query, (date,))
+        if self.is_record_exists:
+            print('record is axists')
+            pass
+
+        else:
+            query = "INSERT OR REPLACE INTO notes (name) VALUES (?)"
+        
+            return self.connection(query, (date_now_undercored,))
 
 
     def select(self, id: int | None = None) -> tuple | list:
@@ -72,15 +79,21 @@ class NoteDataBase:
         return self.connection(query, (id,))
 
 
+    @property
+    def is_record_exists(self):
 
+        query = 'SELECT EXISTS(SELECT 1 FROM notes WHERE name = ?);'
+
+        status = self.connection(query, (date_now_undercored,)).fetchone()[0]
+
+        return bool(status)
 
 
 
 
 if __name__ == '__main__':
     base = NoteDataBase()
-    base._create()
-    base.insert('2025_11_29')
+    base.insert('2025_11_03')
     # base.insert('25_25_25')
     # s2 = dict(base.select(6))
     s = base.select() 

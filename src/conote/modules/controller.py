@@ -20,6 +20,14 @@ class NoteCommandController(NoteDataBase, MarkDownInit):
           
         self.console = Console()
 
+    
+    def add(self, note):
+        
+        self.create_note(note)
+        self.insert()
+
+
+
     def ls(self):
 
         table = Table(title='Notes List', box=box.HORIZONTALS, caption='END OF LIST', show_lines=False, header_style='red')
@@ -40,7 +48,7 @@ class NoteCommandController(NoteDataBase, MarkDownInit):
 
         if path:
             
-           os.remove(file_path)
+           os.remove(path)
            self.drop(id)
                 
            print('file sucsessfully deleted')
@@ -55,7 +63,7 @@ class NoteCommandController(NoteDataBase, MarkDownInit):
         path = self.is_exists(id)
 
         if path:
-            md = Markdown(self.md.read_file(path))
+            md = Markdown(self.read_file(path))
  
             return self.console.print(Panel(md, title=f'{path}', box=box.HORIZONTALS, expand=True))
 
@@ -80,5 +88,6 @@ class NoteCommandController(NoteDataBase, MarkDownInit):
 
 if __name__ == '__main__':
     note = NoteCommandController()
+    note.add('this is a test note !!!')
     note.ls()
-    note.cat(37)
+    note.cat(4)
