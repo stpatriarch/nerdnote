@@ -1,22 +1,20 @@
 #!/usr/bin/env python3
 
 import os
-from pathlib import Path
-from datetime import datetime
+from rich.prompt import Prompt
+from conote.modules.tools import PATH, messages, stamps
 
 import sqlite3
 
-date_now_undercored:str = datetime.now().strftime("%Y_%m_%d")
 
-dbase_dir = str(Path.home() / "Documents/CNotes")
-os.makedirs(dbase_dir, exist_ok=True)
-dbase = os.path.join(dbase_dir, 'note_base.db')
+DATABASE = os.path.join(PATH, 'note_base.db')
 
 class NoteDataBase:
 
     def __init__(self) -> None:
 
-        self.connect = sqlite3.connect(dbase)
+        self.connect = sqlite3.connect(DATABASE)
+
 
 
     def connection(self, content: str, values: tuple[str | int] | None = None) -> sqlite3.Cursor:
@@ -44,22 +42,25 @@ class NoteDataBase:
         return self.connection(table)
 
 
-    def insert(self):
+    def insert(self) -> None | sqlite3.Cursor:
         
         self._create()
         
         if self.is_record_exists:
-            print('record is axists')
+            messages.info.print('Your thoughts are supplemented!')
             pass
 
         else:
             query = "INSERT OR REPLACE INTO notes (name) VALUES (?)"
         
-            return self.connection(query, (date_now_undercored,))
+            return self.connection(query, (stamps.date_now_undercored,))
 
 
     def select(self, id: int | None = None) -> tuple | list:
 
+        if os.path.getsize(DATABASE) == 0:
+            
+           return messages.info.print('No Data file has detected. Try adding some notes')
 
         if id is None:
             
@@ -69,22 +70,28 @@ class NoteDataBase:
 
         query = "SELECT * FROM notes WHERE id = ?"
 
-
         return self.connection(query, (id,)).fetchone()
 
-    def drop(self, id: int):
+
+    def drop(self, id: int) -> sqlite3.Cursor:
         
         query = "DELETE FROM notes WHERE id = ?"
+        
+        confirm = Prompt.ask(f'DELETE note by id: {id} Continue( yes | no)?', console=messages.confirm)
 
-        return self.connection(query, (id,))
+        if confirm in ('yes', 'YES', 'Y', 'y',):
 
+            return self.connection(query, (id,))
+
+        else:
+            return None
 
     @property
-    def is_record_exists(self):
+    def is_record_exists(self) -> bool:
 
         query = 'SELECT EXISTS(SELECT 1 FROM notes WHERE name = ?);'
 
-        status = self.connection(query, (date_now_undercored,)).fetchone()[0]
+        status = self.connection(query, (stamps.date_now_undercored,)).fetchone()[0]
 
         return bool(status)
 
