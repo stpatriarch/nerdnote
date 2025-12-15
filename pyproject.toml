@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "conote"
-version = "0.0.1.dev20251201"
+version = "0.0.1.dev20251216"
 description = "Note taking tool from console."
 authors = [
     { name = "stpatrirach" }
@@ -13,7 +13,9 @@ requires-python = ">=3.10"
 dependencies = [
     "mdutils >= 1.8.1",
     "rich >= 14.2.0",
-    "click >= 8.3.1"
+    "click >= 8.3.1",
+    "markdown_pdf >= 1.10",
+    'markdown >= 3.10'
 
     ]
 
