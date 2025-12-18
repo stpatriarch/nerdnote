@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from datetime import time
 from .tool import color_messages, table_gen, time_stamps, PATH
 
 stamps = time_stamps()

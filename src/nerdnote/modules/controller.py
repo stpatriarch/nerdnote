@@ -2,16 +2,13 @@
 
 import os
 from pathlib import Path
-from sys import path_importer_cache
 from rich.console import Console
-from rich.table import Table
 from rich import box
 from rich.markdown import Markdown
 from rich.panel import Panel
-from conote.modules import MarkDownInit, NoteDataBase
-from conote.modules.tools import PATH, stamps, messages, tables
+from nerdnote.modules import MarkDownInit, NoteDataBase
+from nerdnote.modules.tools import PATH, messages, tables
 
-NOTE_DIR = Path.home() / "Documents/CNotes"
 
 class NoteCommandController(NoteDataBase, MarkDownInit):
     
@@ -21,7 +18,7 @@ class NoteCommandController(NoteDataBase, MarkDownInit):
         NoteDataBase.__init__(self)
         MarkDownInit.__init__(self)
 
-        self.dbase_dir = str(Path.home() / "Documents/CNotes")
+        # self.dbase_dir = str(Path.home() / "Documents/CNotes")
           
         self.console = Console()
 

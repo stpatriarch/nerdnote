@@ -3,8 +3,8 @@ requires = ["setuptools>=80.9.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "conote"
-version = "0.0.1.dev20251216"
+name = "nerdnote"
+version = "0.0.1.dev20251218"
 description = "Note taking tool from console."
 authors = [
     { name = "stpatrirach" }
@@ -21,10 +21,10 @@ dependencies = [
 
 [tool.setuptools]
 packages = [
-"conote",
-"conote.modules",]
+"nerdnote",
+"nerdnote.modules",]
 
 package-dir = {"" = "src"}
 
 [project.scripts]
- conote = "conote.main:main"
+ nn = "nerdnote.main:main"

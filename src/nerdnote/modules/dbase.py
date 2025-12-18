@@ -2,7 +2,7 @@
 
 import os
 from rich.prompt import Prompt
-from conote.modules.tools import PATH, messages, stamps
+from nerdnote.modules.tools import PATH, messages, stamps
 
 import sqlite3
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 
-from conote.modules import NoteCommandController
+from nerdnote.modules import NoteCommandController
 import click
 
 control = NoteCommandController()

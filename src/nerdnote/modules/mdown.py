@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import os
-from conote.modules.tools import PATH, stamps, messages
+from nerdnote.modules.tools import PATH, stamps, messages
 from mdutils import MdUtils
 from mdutils.fileutils.fileutils import MarkDownFile
 from markdown_pdf import MarkdownPdf, Section
@@ -14,6 +14,7 @@ class MarkDownInit(MdUtils, MarkDownFile):
 
         self.note_path = os.path.join(PATH, file_name)
         self.note_path_with_ext = "".join([self.note_path, '.md',]) 
+
         super().__init__(file_name=self.note_path)
 
     

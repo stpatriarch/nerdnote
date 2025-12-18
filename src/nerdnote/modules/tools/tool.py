@@ -43,6 +43,7 @@ def color_messages():
             Console(style='green bold'))
 
     return messages
+
 if __name__ == '__main__':
     t = time_stamps()
     print(t.date_now)
