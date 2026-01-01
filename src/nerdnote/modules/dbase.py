@@ -2,66 +2,100 @@
 
 import os
 from rich.prompt import Prompt
-from nerdnote.modules.tools import PATH, messages, stamps
+from nerdnote.modules.tools import PATH, Deco
+
 
 import sqlite3
 
 
 DATABASE = os.path.join(PATH, 'note_base.db')
 
-class NoteDataBase:
+class NoteDataBase(Deco):
+    """
+    Responsible for any CRUD like interactions with the database.
+
+    """
 
     def __init__(self) -> None:
 
         self.connect = sqlite3.connect(DATABASE)
+        super().__init__()
 
 
+    def connection(self, content: str, values: tuple[str | int] | tuple[str, str] | None = None) -> sqlite3.Cursor:
+        """
+        Performs operations assosiated with read and write to DB.
 
-    def connection(self, content: str, values: tuple[str | int] | None = None) -> sqlite3.Cursor:
-        
+        :param content: Perfroms a database query.
+        :type content: str
+        :param values: Optional data to be written to the database.
+        :type values: tuple | None
+        :return: Cursor object resulting from the executed query.
+        """      
         with self.connect:
 
             cursor = self.connect.cursor()
             
             if values is None:
                 cursor.execute(content)
+
             else:
                 cursor.execute(content, values)
 
             return cursor
 
     def _create(self) -> sqlite3.Cursor:
+        """
+        Creates a db table in connected database
+
+        :return: Cursor object resulting from the executed query.
+
+        """
 
         table = '''CREATE TABLE IF NOT EXISTS notes (
 
             id INTEGER PRIMARY KEY,
             name TEXT,
-            created_date DATE DEFAULT (DATE('now')) NOT NULL
+            created_date TEXT NOT NULL
         )'''
 
         return self.connection(table)
 
 
     def insert(self) -> None | sqlite3.Cursor:
+        """
+        The execution of the _create function and inserts a data to database.
+
+        :return: Cursor object resulting from the executed query.
+        """
         
         self._create()
         
         if self.is_record_exists:
-            messages.info.print('Your thoughts are supplemented!')
+            self.message_info.print('Your thoughts are supplemented!')
             pass
 
         else:
-            query = "INSERT OR REPLACE INTO notes (name) VALUES (?)"
+            query = "INSERT OR REPLACE INTO notes (name, created_date) VALUES (?, ?)"
         
-            return self.connection(query, (stamps.date_now_undercored,))
+            return self.connection(query, (self.date_now_undercored, self.date_now))
 
 
-    def select(self, id: int | None = None) -> tuple | list:
+    def select(self, id: int | None = None) -> list[tuple[int, str, str]] | None:
+        """
+        Checks are database not empty and select data from connected database.
+
+        :param id: Id of record to fetch from the database.
+        :type id: int | None
+
+        :return: list of records or do operations with target id.
+        """
 
         if os.path.getsize(DATABASE) == 0:
-            
-           return messages.info.print('No Data file has detected. Try adding some notes')
 
+            self.message_info.print('No Data file has detected. Try adding some notes')
+            return
+        
         if id is None:
             
             query = "SELECT * FROM notes ORDER BY id"
@@ -70,39 +104,44 @@ class NoteDataBase:
 
         query = "SELECT * FROM notes WHERE id = ?"
 
-        return self.connection(query, (id,)).fetchone()
+        record = self.connection(query, (id,)).fetchone()
+
+        return [] if record is None else [record]
 
 
-    def drop(self, id: int) -> sqlite3.Cursor:
-        
+    def drop(self, id: int) -> str | sqlite3.Cursor | None:
+        """
+        Delete record from database by id.
+
+        :param id: Id of record to delete from the database.
+        :type id: int
+
+        :return: Cursor object resulting from the executed query.
+        """       
+
         query = "DELETE FROM notes WHERE id = ?"
-        
-        confirm = Prompt.ask(f'DELETE note by id: {id} Continue( yes | no)?', console=messages.confirm)
 
-        if confirm in ('yes', 'YES', 'Y', 'y',):
+        if self.is_record_exists:
+            confirm = Prompt.ask(f'DELETE note by id: {id} Continue( yes | no)?', console=self.message_warn)
 
-            return self.connection(query, (id,))
+            if confirm in ('yes', 'YES', 'y', 'Y', ):
 
+                return self.connection(query, (id,))
+            else:
+                return 'REJECTATION'
         else:
-            return None
+            return 'REJECTATION'
 
     @property
     def is_record_exists(self) -> bool:
+        """
+        Checks is record exists in database.
+
+        :return: Status of the record as a boolean.
+        """
 
         query = 'SELECT EXISTS(SELECT 1 FROM notes WHERE name = ?);'
 
-        status = self.connection(query, (stamps.date_now_undercored,)).fetchone()[0]
-
+        status = self.connection(query, (self.date_now_undercored,)).fetchone()[0]
+        
         return bool(status)
-
-
-
-
-if __name__ == '__main__':
-    base = NoteDataBase()
-    base.insert('2025_11_03')
-    # base.insert('25_25_25')
-    # s2 = dict(base.select(6))
-    s = base.select() 
-
-    print(type(s))

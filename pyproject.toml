@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nerdnote"
-version = "0.0.1.dev20251218"
+version = "0.0.1.rc20260101"
 description = "Note taking tool from console."
 authors = [
     { name = "stpatrirach" }
@@ -22,7 +22,8 @@ dependencies = [
 [tool.setuptools]
 packages = [
 "nerdnote",
-"nerdnote.modules",]
+"nerdnote.modules",
+"nerdnote.modules.tools",]
 
 package-dir = {"" = "src"}
 

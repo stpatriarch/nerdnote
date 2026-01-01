@@ -6,46 +6,37 @@ from rich.console import Console
 from rich.table import Table
 from rich import box
 from datetime import datetime
-from collections import namedtuple
 
 PATH = os.path.join(Path.home(),"Documents/CNotes")
 
-def time_stamps():
+class Deco:
+    """
+    Class contains date and time stamps,
+    informative and warning messages and
+    generates table body.
+    """
 
-    now:object = datetime.now()
- 
-    time_stp = namedtuple('time_stp', ['date_now', 'date_now_undercored', 'time_now'])
+    def __init__(self) -> None:
+        
     
-    stamps = time_stp(
-            now.strftime("%Y-%m-%d"), 
-            now.strftime("%Y_%m_%d"), 
-            now.strftime("%H:%M:%S"))
+        now:object = datetime.now()
 
-    return stamps
+        self.date_now = now.strftime("%Y-%m-%d")
+        self.date_now_undercored = now.strftime("%Y_%m_%d")
+        self.time_now = now.strftime("%H:%M:%S")
+        self.message_warn = Console(style='red bold')
+        self.message_info = Console(style='green bold')
 
-def table_gen():
+    @staticmethod
+    def table_gen() -> Table:
+        """
+        The fucntion generate a table by ginven attributes.
+        """
+        table = Table(title='Notes List', box=box.HORIZONTALS, caption='END OF LIST', show_lines=False, header_style='red')
 
-    table = Table(title='Notes List', box=box.HORIZONTALS, caption='END OF LIST', show_lines=False, header_style='red')
-
-    table.add_column("ID", justify="right", style="red", no_wrap=True)
-    table.add_column("NAME", justify="right", style="cyan", no_wrap=True)
-    table.add_column("CREATED", justify="right", style="cyan", no_wrap=True)                
+        table.add_column("ID", justify="right", style="red", no_wrap=True)
+        table.add_column("NAME", justify="right", style="cyan", no_wrap=True)
+        table.add_column("CREATED", justify="right", style="cyan", no_wrap=True)                
      
-    return table
+        return table
 
-
-def color_messages():
-    
-
-    message = namedtuple('message', ['confirm', 'info',])
-    messages = message(
-            Console(style='red bold'), 
-            Console(style='green bold'))
-
-    return messages
-
-if __name__ == '__main__':
-    t = time_stamps()
-    print(t.date_now)
-    print(t.date_now_undercored)
-    print(t.time_now)

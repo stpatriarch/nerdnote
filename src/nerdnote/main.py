@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
 
-
+from importlib.metadata import version, PackageNotFoundError
 from nerdnote.modules import NoteCommandController
 import click
+
+try:
+    VERSION = version("nerdnote")
+except PackageNotFoundError:
+    VERSION = "dev"
 
 control = NoteCommandController()
 
 @click.group()
+@click.version_option(version=VERSION, message="%(version)s")
 def main() -> None:
     pass
 
@@ -38,7 +44,7 @@ def cat(note_id: int) -> None:
 
 @main.command(help='Export markdown in html or pdf format. | Մարկդաուն ֆայլը կվերափոխի html կամ pdf:')
 @click.argument('note_id', type=int)
-@click.argument('file_type', type=click.Choice(['pdf', 'html'], case_sensitive=False))
+@click.argument('file_type', type=click.Choice(['pdf', 'html','htm' ], case_sensitive=False))
 def export(note_id: int, file_type: str) -> None:
     control.export(note_id, pattern=file_type)
     

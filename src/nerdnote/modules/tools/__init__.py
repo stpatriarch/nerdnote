@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
 
-from .tool import color_messages, table_gen, time_stamps, PATH
+from .tool import Deco, PATH
 
-stamps = time_stamps()
-messages = color_messages()
-tables = table_gen()
-
-__all__ = ['messages', 'tables', 'stamps', 'PATH',]
+__all__ = ['Deco', 'PATH',]
