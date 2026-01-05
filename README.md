@@ -4,7 +4,7 @@
 
 <br>
 
-![Alt text for the GIF](docs/demo-ezgif.com-resize.gif)
+![Alt text for the GIF](docs/demo.gif)
 
 ### 🧰 Կատարեք նշումներ, գրանցեք ձեր մտքերը տերմինալից
 
