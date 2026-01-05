@@ -1,5 +1,6 @@
 
 ## 🇦🇲
+
 **Լոկալ տեղադրում**
 
 ```bash
@@ -64,7 +65,6 @@ pipx install .
 
 ```
 
-
 ## 🇺🇸
 
 **Local Installation**
@@ -85,7 +85,6 @@ pip install .
 ```
 
 **Global Installation**
-
 
 ```bash
 

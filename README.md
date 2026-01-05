@@ -1,10 +1,14 @@
-# NerdNote 
+# NerdNote
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <br>
 
 ![Alt text for the GIF](docs/demo.gif)
+
+###### **README ON:** [🇷🇺](#-1)  [🇺🇸](#-2)
+
+## 🇦🇲
 
 ### 🧰 Կատարեք նշումներ, գրանցեք ձեր մտքերը տերմինալից
 
@@ -23,6 +27,7 @@ Nerdnote թույլ է տալիս թույլ է տալիս կատարել նշո
 * Նշումների ջնջում։
 * Վերափոխումը **pdf** կամ **html** ֆորմատների։
 * Ամբողջ կառավարումը իրականացվում է անմիջապես տերմինալից՝ առանց այն լքելու։
+
 ---
 
 #### 📎 Տեղադրում և Շահագործում։
@@ -56,7 +61,7 @@ Nerdnote позволяет создавать заметки, не покида
 #### 💡 Возможности
 
 * Просмотр созданных заметок (Preview).
-* Список всех заметок. 
+* Список всех заметок.
 * Удаление заметок.
 * Экспорт в **pdf** или **html.**
 * Всё управление происходит прямо из терминала, без его покидания.
@@ -67,7 +72,7 @@ Nerdnote позволяет создавать заметки, не покида
 
 Приложение можно установить локально или глобально. Разница лишь в том, что при локальной установке оно будет доступно только внутри виртуального окружения, когда оно активно.
 
-Для установки [здесь](/docs/install.md)
+Для установки [здесь](/docs/install.md#-1)
 
 **Использование**
 
@@ -79,8 +84,7 @@ Nerdnote позволяет создавать заметки, не покида
 
 ---
 
-# 🇺🇸
-
+## 🇺🇸
 
 ### 🧰 Take notes and record your thoughts directly from the terminal
 
@@ -94,8 +98,8 @@ Often, you need to capture an idea or thought to avoid forgetting it. Usually, t
 
 #### 💡 Features
 
-* View notes (Preview). 
-* List all notes. 
+* View notes (Preview).
+* List all notes.
 * Delete notes.
 * Export to **pdf** or **html.**
 * All operations are terminal-based, no need to leave it.
@@ -106,7 +110,7 @@ Often, you need to capture an idea or thought to avoid forgetting it. Usually, t
 
 The tool can be installed locally or globally. The difference is that with a local installation, it is available only within the virtual environment when active.
 
-For installation click [here](/docs/install.md)
+For installation click [here](/docs/install.md#-2)
 
 **Usage**
 
@@ -115,5 +119,3 @@ For installation click [here](/docs/install.md)
 * `nn cat id` — displays the md file by id (id must be numeric).
 * `nn rm id` — deletes the file and record by id.
 * `nn export id pdf` — converts the file by id to pdf.
-
-
