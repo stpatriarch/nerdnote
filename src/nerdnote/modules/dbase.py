@@ -2,7 +2,7 @@
 
 import os
 from rich.prompt import Prompt
-from nerdnote.modules.tools import PATH, Deco
+from nerdnote.modules.tools import PATH, DecoMixin
 
 
 import sqlite3
@@ -10,7 +10,7 @@ import sqlite3
 
 DATABASE = os.path.join(PATH, 'note_base.db')
 
-class NoteDataBase(Deco):
+class NoteDataBase(DecoMixin):
     """
     Responsible for any CRUD like interactions with the database.
 
@@ -71,7 +71,7 @@ class NoteDataBase(Deco):
         
         self._create()
         
-        if self.is_record_exists:
+        if self.is_record_exists():
             self.message_info.print('Your thoughts are supplemented!')
             pass
 
@@ -121,27 +121,37 @@ class NoteDataBase(Deco):
 
         query = "DELETE FROM notes WHERE id = ?"
 
-        if self.is_record_exists:
+        if self.is_record_exists(id):
+        
             confirm = Prompt.ask(f'DELETE note by id: {id} Continue( yes | no)?', console=self.message_warn)
 
             if confirm in ('yes', 'YES', 'y', 'Y', ):
 
                 return self.connection(query, (id,))
             else:
+
                 return 'REJECTATION'
         else:
+
             return 'REJECTATION'
 
-    @property
-    def is_record_exists(self) -> bool:
+
+    def is_record_exists(self, id: int | None = None) -> bool:
         """
         Checks is record exists in database.
 
         :return: Status of the record as a boolean.
         """
 
-        query = 'SELECT EXISTS(SELECT 1 FROM notes WHERE name = ?);'
+        if id is None:
 
-        status = self.connection(query, (self.date_now_undercored,)).fetchone()[0]
+            query = 'SELECT EXISTS(SELECT 1 FROM notes WHERE name = ?);'
+             
+            status = self.connection(query, (self.date_now_undercored,)).fetchone()[0]
+
+        else:
+            query = 'SELECT EXISTS(SELECT 1 FROM notes WHERE id = ?);'
+
+            status = self.connection(query, (id,)).fetchone()[0]
         
         return bool(status)

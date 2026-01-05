@@ -178,4 +178,3 @@ class NoteCommandController(NoteDataBase, MarkDownInit):
         converted file.
         """
         os.makedirs(PATH, exist_ok=True)
-

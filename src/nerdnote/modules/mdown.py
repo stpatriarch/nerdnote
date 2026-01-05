@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 
 import os
-from nerdnote.modules.tools import PATH, Deco
+from nerdnote.modules.tools import PATH, DecoMixin
 from mdutils import MdUtils
 from mdutils.fileutils.fileutils import MarkDownFile
 from markdown_pdf import MarkdownPdf, Section
 import markdown
 
-class MarkDownInit(MdUtils, MarkDownFile, Deco):
+class MarkDownInit(MdUtils, MarkDownFile, DecoMixin):
     """
     Manages Markdown documents, including creation and exprt to PDF and HTML formats. 
 
@@ -17,7 +17,7 @@ class MarkDownInit(MdUtils, MarkDownFile, Deco):
 
     def __init__(self) -> None:
 
-        Deco.__init__(self)
+        DecoMixin.__init__(self)
 
         self.file_name = self.date_now_undercored
         self.note_path = os.path.join(PATH, self.file_name)

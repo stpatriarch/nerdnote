@@ -9,7 +9,7 @@ from datetime import datetime
 
 PATH = os.path.join(Path.home(),"Documents/CNotes")
 
-class Deco:
+class DecoMixin:
     """
     Class contains date and time stamps,
     informative and warning messages and
@@ -39,4 +39,3 @@ class Deco:
         table.add_column("CREATED", justify="right", style="cyan", no_wrap=True)                
      
         return table
-

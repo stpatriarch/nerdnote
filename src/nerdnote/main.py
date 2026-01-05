@@ -28,7 +28,6 @@ def ls() -> None:
     control.ls()
 
 
-
 @main.command(help='Remove existing note file and record. | Կջնջի առկա նշում-ֆայլը և գրանցումը:')
 @click.argument('note_id', type=int)
 def rm(note_id: int) -> None:
