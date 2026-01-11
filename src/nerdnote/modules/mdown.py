@@ -15,12 +15,12 @@ class MarkDownInit(MdUtils, MarkDownFile, DecoMixin):
     such as initializing new documents and exproting them to supported output formats.
     """
 
-    def __init__(self) -> None:
+    def __init__(self, file_path=PATH) -> None:
 
         DecoMixin.__init__(self)
 
         self.file_name = self.date_now_undercored
-        self.note_path = os.path.join(PATH, self.file_name)
+        self.note_path = os.path.join(file_path, self.file_name)
         self.note_path_with_ext = "".join([self.note_path, '.md',]) 
 
         super().__init__(file_name=self.note_path)

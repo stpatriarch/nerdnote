@@ -7,7 +7,7 @@ from rich.table import Table
 from rich import box
 from datetime import datetime
 
-PATH = os.path.join(Path.home(),"Documents/CNotes")
+PATH = os.path.join(Path.home(),"Documents/NNotes")
 
 class DecoMixin:
     """
@@ -37,5 +37,5 @@ class DecoMixin:
         table.add_column("ID", justify="right", style="red", no_wrap=True)
         table.add_column("NAME", justify="right", style="cyan", no_wrap=True)
         table.add_column("CREATED", justify="right", style="cyan", no_wrap=True)                
-     
+
         return table

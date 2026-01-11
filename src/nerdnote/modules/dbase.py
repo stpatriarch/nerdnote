@@ -3,8 +3,6 @@
 import os
 from rich.prompt import Prompt
 from nerdnote.modules.tools import PATH, DecoMixin
-
-
 import sqlite3
 
 
@@ -16,9 +14,9 @@ class NoteDataBase(DecoMixin):
 
     """
 
-    def __init__(self) -> None:
+    def __init__(self, database=DATABASE) -> None:
 
-        self.connect = sqlite3.connect(DATABASE)
+        self.connect = sqlite3.connect(database)
         super().__init__()
 
 
