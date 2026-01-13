@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nerdnote"
-version = "0.0.1a20260101"
+version = "0.0.1a20260113"
 description = "Note taking tool from console."
 authors = [
     { name = "stpatrirach" }
