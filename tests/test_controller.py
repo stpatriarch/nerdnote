@@ -81,11 +81,11 @@ def test_rm_rejection(control, monkeypatch):
     calls = []
 
     monkeypatch.setattr(control, 'is_exists', lambda _: True)
-    monkeypatch.setattr(control, 'drop', lambda _: "REJECTATION")
+    monkeypatch.setattr(control, 'drop', lambda _: False)
     monkeypatch.setattr(control.message_info, 'print', lambda msg: calls.append(('print', msg)))
     
     control.rm(1)
-
+    
     assert calls == [('print', 'File not removed, canceled by user !')]
 
 
@@ -94,11 +94,12 @@ def test_rm_record(control, monkeypatch):
     calls = []
 
     monkeypatch.setattr(control, 'is_exists', lambda _: True)
-    monkeypatch.setattr(control, 'drop', lambda _: False)
+    monkeypatch.setattr(control, 'drop', lambda _: True)
     monkeypatch.setattr(controller.os, 'remove', lambda msg: calls.append(('print', ("Remove_status", msg))))
     monkeypatch.setattr(control.message_info, 'print', lambda msg: calls.append(('print', msg)))
     
     control.rm(1)
+
 
     assert calls == [('print', ('Remove_status', True)), ('print', 'File successfully deleted')]
 

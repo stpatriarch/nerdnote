@@ -84,7 +84,7 @@ class NoteCommandController(NoteDataBase, MarkDownInit):
             self.message_warn.print('removing !')
             return
 
-        if self.drop(id) == 'REJECTATION':
+        if  not self.drop(id):
 
             self.message_info.print('File not removed, canceled by user !')
             return

@@ -89,7 +89,7 @@ class NoteDataBase(DecoMixin):
         :return: list of records or do operations with target id.
         """
 
-        if os.path.getsize(DATABASE) == 0:
+        if  not self.table_exists:
 
             self.message_info.print('No Data file has detected. Try adding some notes')
             return
@@ -107,7 +107,7 @@ class NoteDataBase(DecoMixin):
         return [] if record is None else [record]
 
 
-    def drop(self, id: int) -> str | sqlite3.Cursor | None:
+    def drop(self, id: int) -> sqlite3.Cursor | None:
         """
         Delete record from database by id.
 
@@ -121,17 +121,16 @@ class NoteDataBase(DecoMixin):
 
         if self.is_record_exists(id):
         
-            confirm = Prompt.ask(f'DELETE note by id: {id} Continue( yes | no)?', console=self.message_warn)
-
-            if confirm in ('yes', 'YES', 'y', 'Y', ):
+            if self.ask_user(id):
 
                 return self.connection(query, (id,))
+
             else:
 
-                return 'REJECTATION'
+                return None
         else:
 
-            return 'REJECTATION'
+            return None
 
 
     def is_record_exists(self, id: int | None = None) -> bool:
@@ -153,3 +152,37 @@ class NoteDataBase(DecoMixin):
             status = self.connection(query, (id,)).fetchone()[0]
         
         return bool(status)
+
+
+    def ask_user(self, id: int) -> bool:
+        """
+        Ask the user to confirm deletion of a note by its id.
+
+        :param id: Id of the note to be deleted.
+        :type id: int
+
+        :return: True if the user confirms the action, False otherwise.
+
+        """
+        
+        confirm = Prompt.ask(f'DELETE note by id: {id} Continue( yes | no)?', console=self.message_warn)
+
+        if confirm.lower() in ('yes','y',):
+
+            return True
+
+        else:
+
+            return False
+
+
+    @property
+    def table_exists(self) -> bool:
+        """
+        Check whether the notes table exists in the database.
+        
+        :return: True if the table exists, False otherwise.
+        """
+        query = "SELECT name FROM sqlite_master WHERE type='table' AND name=?"
+
+        return self.connection(query, ('notes',)).fetchone() is not None
