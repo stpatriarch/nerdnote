@@ -6,7 +6,7 @@
 ```bash
 
 # Ռեպոզիտորիայի պատճենում
-`https://github.com/stpatriarch/nerdnote.git`
+git clone https://github.com/stpatriarch/nerdnote.git
 
 # մուտք ռեպոզիտորիա
 cd nerdnote
@@ -23,7 +23,7 @@ pip install .
 ```bash
 
 # Ռեպոզիտորիայի պատճենում
-`https://github.com/stpatriarch/nerdnote.git`
+git clone https://github.com/stpatriarch/nerdnote.git
 
 # մուտք ռեպոզիտորիա
 cd nerdnote
@@ -38,7 +38,7 @@ pipx install .
 
 ```bash
 # Клонирование репозитория
-https://github.com/stpatriarch/nerdnote.git
+git clone https://github.com/stpatriarch/nerdnote.git
 
 # Переход в каталог
 cd nerdnote
@@ -55,7 +55,7 @@ pip install .
 ```bash
 
 # Клонирование репозитория
-https://github.com/stpatriarch/nerdnote.git
+git clone https://github.com/stpatriarch/nerdnote.git
 
 # Переход в каталог
 cd nerdnote
@@ -71,7 +71,7 @@ pipx install .
 
 ```bash
 # Clone the repository
-https://github.com/stpatriarch/nerdnote.git
+git clone https://github.com/stpatriarch/nerdnote.git
 
 # Enter the repository
 cd nerdnote
@@ -89,7 +89,7 @@ pip install .
 ```bash
 
 # Clone the repository
-https://github.com/stpatriarch/nerdnote.git
+git clone https://github.com/stpatriarch/nerdnote.git
 
 # Enter the repository
 cd nerdnote
